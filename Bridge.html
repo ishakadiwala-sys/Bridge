@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Processing Payment...</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <h3>Redirecting you back to the app...</h3>
+    <div class="loader"></div>
+
+    <script>
+        // 1. Get the transaction reference from the URL (Paystack appends these)
+        const urlParams = new URLSearchParams(window.location.search);
+        const reference = urlParams.get('reference');
+        const trxref = urlParams.get('trxref');
+
+        // 2. Construct your app's Deep Link
+        // We pass the reference so the app can verify the payment later
+        const deepLink = `myshopapp://payment-success?reference=${reference}&trxref=${trxref}`;
+
+        // 3. Perform the redirect
+        window.location.href = deepLink;
+
+        // Fallback for some browsers: if it doesn't redirect in 2 seconds, show a button
+        setTimeout(() => {
+            document.body.innerHTML += `<p>If you aren't redirected, <a href="${deepLink}">click here</a></p>`;
+        }, 2000);
+    </script>
+</body>
+</html>
