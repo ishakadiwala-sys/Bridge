@@ -20,7 +20,7 @@
 
         // 2. Construct your app's Deep Link
         // We pass the reference so the app can verify the payment later
-        const deepLink = `myshopapp://payment-success?reference=${reference}&trxref=${trxref}`;
+        const deepLink = `myshopapp://checkout?reference=${reference}&trxref=${trxref}`;
 
         // 3. Perform the redirect
         window.location.href = deepLink;
